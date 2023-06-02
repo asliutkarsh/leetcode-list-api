@@ -36,11 +36,11 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") Long userId){
         userService.deleteUser(userId);
-        return new ResponseEntity<ApiResponse>(new ApiResponse("User Deleted Successfully",true),HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse("User Deleted Successfully",true),HttpStatus.OK);
     }
 
     @GetMapping("")
-    public ResponseEntity<List<UserDto>> fetchAllUsers(){;
+    public ResponseEntity<List<UserDto>> fetchAllUsers(){
         return ResponseEntity.ok(userService.getAllUser());
     }
 

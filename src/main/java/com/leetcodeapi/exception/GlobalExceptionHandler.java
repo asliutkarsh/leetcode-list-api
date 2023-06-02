@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -15,7 +14,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse> resourceNotFoundExceptionHandler(ResourceNotFoundException ex){
         String message = ex.getMessage();
         ApiResponse apiResponse = new ApiResponse(message,false);
-        return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
     }
 
 
@@ -23,6 +22,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse> handleDuplicateEntry(DuplicateEntryException ex) {
         String message = "This user-name already exists";
         return new ResponseEntity<>(new ApiResponse(message,false), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(LeetcodeIdNotFoundException.class)
+    public ResponseEntity<ApiResponse> handleLeetcodeNotFound(LeetcodeIdNotFoundException ex) {
+        String message = "This user-name not found on leetcode";
+        return new ResponseEntity<>(new ApiResponse(message,false), HttpStatus.NOT_FOUND);
     }
 
 }

@@ -3,8 +3,10 @@ package com.leetcodeapi.services.impl;
 import com.leetcodeapi.dto.UserDto;
 import com.leetcodeapi.entities.User;
 import com.leetcodeapi.exception.DuplicateEntryException;
+import com.leetcodeapi.exception.LeetcodeIdNotFoundException;
 import com.leetcodeapi.exception.ResourceNotFoundException;
 import com.leetcodeapi.repository.UserRepository;
+import com.leetcodeapi.services.LeetcodeService;
 import com.leetcodeapi.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private final LeetcodeService leetcodeService;
+
     private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, LeetcodeService leetcodeService, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.leetcodeService = leetcodeService;
         this.modelMapper = modelMapper;
     }
 
@@ -29,6 +34,9 @@ public class UserServiceImpl implements UserService {
     public Long createUser(UserDto userDto) {
         if (userRepository.existsByUsername(userDto.getUsername())){
             throw new DuplicateEntryException();
+        }
+        if (!leetcodeService.existByuserName(userDto.getUsername())){
+            throw new LeetcodeIdNotFoundException();
         }
         User user = modelMapper.map(userDto,User.class);
         User savedUser = userRepository.save(user);
@@ -43,6 +51,9 @@ public class UserServiceImpl implements UserService {
         if (!Objects.equals(user.getUsername(), userDto.getUsername()) && userDto.getUsername() != null){
             if (userRepository.existsByUsername(userDto.getUsername())){
                 throw new DuplicateEntryException();
+            }
+            if (!leetcodeService.existByuserName(userDto.getUsername())){
+                throw new LeetcodeIdNotFoundException();
             }
 
             user.setUsername(userDto.getUsername());
