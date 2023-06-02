@@ -1,4 +1,4 @@
-package com.leetcodeapi.constant;
+package com.leetcodeapi.utils;
 
 public class AppConstants {
 

@@ -1,10 +1,8 @@
 package com.leetcodeapi.services.impl;
 
-import com.leetcodeapi.constant.AppConstants;
+import com.leetcodeapi.utils.AppConstants;
 import com.leetcodeapi.dto.leetcodeproblem.Question;
 import com.leetcodeapi.dto.leetcodeproblem.Root;
-import com.leetcodeapi.exception.ProblemNotFoundException;
-import com.leetcodeapi.exception.ResourceNotFoundException;
 import com.leetcodeapi.services.LeetcodeService;
 import org.springframework.http.*;
 import org.springframework.http.converter.StringHttpMessageConverter;

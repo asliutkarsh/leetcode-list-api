@@ -1,6 +1,6 @@
 package com.leetcodeapi.services.impl;
 
-import com.leetcodeapi.constant.AppConstants;
+import com.leetcodeapi.utils.AppConstants;
 import com.leetcodeapi.dto.TaskDto;
 import com.leetcodeapi.dto.TaskResponse;
 import com.leetcodeapi.dto.leetcodeproblem.Question;

@@ -1,6 +1,6 @@
 package com.leetcodeapi.controller;
 
-import com.leetcodeapi.constant.AppConstants;
+import com.leetcodeapi.utils.AppConstants;
 import com.leetcodeapi.dto.ApiResponse;
 import com.leetcodeapi.dto.TaskDto;
 import com.leetcodeapi.dto.TaskResponse;
