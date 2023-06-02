@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-
 public class UserController {
 
     private final UserService userService;
@@ -21,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<Long> createUser( @RequestBody UserDto userDto) {
         Long createUserId = userService.createUser(userDto);
         return new ResponseEntity<>(createUserId, HttpStatus.CREATED);
@@ -39,7 +38,7 @@ public class UserController {
         return new ResponseEntity<>(new ApiResponse("User Deleted Successfully",true),HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public ResponseEntity<List<UserDto>> fetchAllUsers(){
         return ResponseEntity.ok(userService.getAllUser());
     }

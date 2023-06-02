@@ -4,39 +4,39 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
+@Table(name = "tasks")
 @Getter
 @Setter
 @ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
-public class User {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(nullable = false,length = 100)
-    private String name;
     @Column(unique = true)
-    private String username;
-    private String password;
-    private Long totalPoints;
-    private Long dailyPoints;
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Task> tasks = new ArrayList<>();
+    private Long problem_id;
+    private String title;
+    private String difficulty;
+    private String link;
+    private Long points;
+    private Timestamp timestamp;
+    @Column(length = 1000000)
+    private String notes;
+    @ManyToOne
+    private User user;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        User user = (User) o;
-        return getId() != null && Objects.equals(getId(), user.getId());
+        Task task = (Task) o;
+        return getId() != null && Objects.equals(getId(), task.getId());
     }
 
     @Override

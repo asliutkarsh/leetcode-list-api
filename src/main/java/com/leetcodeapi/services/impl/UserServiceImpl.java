@@ -19,9 +19,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
     private final LeetcodeService leetcodeService;
-
     private final ModelMapper modelMapper;
 
     public UserServiceImpl(UserRepository userRepository, LeetcodeService leetcodeService, ModelMapper modelMapper) {
@@ -39,6 +37,8 @@ public class UserServiceImpl implements UserService {
             throw new LeetcodeIdNotFoundException();
         }
         User user = modelMapper.map(userDto,User.class);
+        user.setTotalPoints(0L);
+        user.setDailyPoints(0L);
         User savedUser = userRepository.save(user);
         return savedUser.getId();
     }

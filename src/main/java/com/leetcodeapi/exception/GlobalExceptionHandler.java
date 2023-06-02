@@ -30,4 +30,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ApiResponse(message,false), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ProblemNotFoundException.class)
+    public ResponseEntity<ApiResponse> handleProblemNotFound(ProblemNotFoundException ex) {
+        String message = "This problem not found on leetcode";
+        return new ResponseEntity<>(new ApiResponse(message,false), HttpStatus.NOT_FOUND);
+    }
+
 }
