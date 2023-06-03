@@ -61,7 +61,7 @@ public class TaskServiceImpl implements TaskService {
         }
 
         task.setPoints(points);
-        updatePoints(points,user);
+        addPoints(points,user);
         task.setTimestamp(new Timestamp(new Date().getTime()));
         task.setUser(user);
 
@@ -104,6 +104,7 @@ public class TaskServiceImpl implements TaskService {
     public void deleteTask(Long taskId) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(()-> new ResourceNotFoundException("Task","id",taskId));
+        deletePoints(task.getPoints(),task.getUser());
         taskRepository.delete(task);
     }
 
@@ -117,9 +118,16 @@ public class TaskServiceImpl implements TaskService {
         return getTaskResponse(taskPage);
     }
 
-    private void updatePoints(long points,User user){
+    private void addPoints(long points,User user){
         user.setDailyPoints(user.getDailyPoints()+points);
         user.setTotalPoints(user.getTotalPoints()+points);
         userRepository.save(user);
     }
+
+    private void deletePoints(long points,User user){
+        user.setDailyPoints(user.getDailyPoints()-points);
+        user.setTotalPoints(user.getTotalPoints()-points);
+        userRepository.save(user);
+    }
+
 }
