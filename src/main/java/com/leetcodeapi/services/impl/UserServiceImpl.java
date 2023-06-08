@@ -65,6 +65,10 @@ public class UserServiceImpl implements UserService {
         if (!Objects.equals(user.getPassword(), userDto.getPassword()) && userDto.getPassword() != null){
             user.setPassword(userDto.getPassword());
         }
+        if ( userDto.getDailyPoints() == 0){
+            user.setDailyPoints(0L);
+        }
+
 
         User updatedUser = userRepository.save(user);
         return modelMapper.map(updatedUser,UserDto.class);
