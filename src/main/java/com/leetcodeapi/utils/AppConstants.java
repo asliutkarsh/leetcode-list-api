@@ -17,8 +17,13 @@ public class AppConstants {
 
     public static final String PAGE_NUMBER ="0";
     public static final String PAGE_SIZE ="10";
-    public static final String SORT_BY ="id";
-    public static final String SORT_DIR ="ASC";
+    public static final String SORT_BY ="timestamp";
+    public static final String SORT_DIR ="DESC";
+
+    public static final String JWT_SECRET ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ";
+
+    public static final long JWT_TOKEN_VALIDITY= 7*24*60*60 ; //in seconds
+
 
 
 }

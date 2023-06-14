@@ -1,5 +1,8 @@
 package com.leetcodeapi.services.impl;
 
+import com.leetcodeapi.entities.UserDailyScore;
+import com.leetcodeapi.exception.DuplicateEntryException;
+import com.leetcodeapi.repository.UserDailyScoreRepository;
 import com.leetcodeapi.utils.AppConstants;
 import com.leetcodeapi.dto.TaskDto;
 import com.leetcodeapi.dto.TaskResponse;
@@ -20,6 +23,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -30,21 +34,26 @@ public class TaskServiceImpl implements TaskService {
     private final LeetcodeService leetcodeService;
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+    private final UserDailyScoreRepository userDailyScoreRepository;
 
-    public TaskServiceImpl(TaskRepository taskRepository, LeetcodeService leetcodeService, ModelMapper modelMapper, UserRepository userRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, LeetcodeService leetcodeService, ModelMapper modelMapper, UserRepository userRepository,
+                           UserDailyScoreRepository userDailyScoreRepository) {
         this.taskRepository = taskRepository;
         this.leetcodeService = leetcodeService;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
+        this.userDailyScoreRepository = userDailyScoreRepository;
     }
 
     @Override
     public Long createTask(TaskDto taskDto,Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new ResourceNotFoundException("User","id",userId));
-
+        if (taskRepository.existsByProblemId(taskDto.getProblemId())){
+            throw new DuplicateEntryException("Task already exists");
+        }
         Task task = modelMapper.map(taskDto,Task.class);
-        Question  question = leetcodeService.getProblemById(taskDto.getProblem_id());
+        Question  question = leetcodeService.getProblemById(taskDto.getProblemId());
         if (question==null){
             throw new ProblemNotFoundException();
         }
@@ -104,7 +113,7 @@ public class TaskServiceImpl implements TaskService {
     public void deleteTask(Long taskId) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(()-> new ResourceNotFoundException("Task","id",taskId));
-        deletePoints(task.getPoints(),task.getUser());
+        deletePoints(task,task.getUser());
         taskRepository.delete(task);
     }
 
@@ -124,10 +133,18 @@ public class TaskServiceImpl implements TaskService {
         userRepository.save(user);
     }
 
-    private void deletePoints(long points,User user){
-        user.setDailyPoints(user.getDailyPoints()-points);
-        user.setTotalPoints(user.getTotalPoints()-points);
+    private void deletePoints(Task task,User user){
+        UserDailyScore userDailyScore = userDailyScoreRepository.findByUser_IdAndDate(
+                        user.getId(), LocalDate.from(task.getTimestamp().toInstant())
+                        ).orElse(null);
+        if (userDailyScore!=null){
+            userDailyScore.setScore(userDailyScore.getScore()-task.getPoints());
+            userDailyScoreRepository.save(userDailyScore);
+        }
+        user.setDailyPoints(user.getDailyPoints()-task.getPoints());
+        user.setTotalPoints(user.getTotalPoints()-task.getPoints());
         userRepository.save(user);
     }
+
 
 }

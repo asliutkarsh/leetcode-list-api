@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface TaskRepository extends JpaRepository<Task,Long> {
 
     Page<Task> findTasksByUser(User user,Pageable pageable);
+
+    Boolean existsByProblemId(Long problem_id);
 }

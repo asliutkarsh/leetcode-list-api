@@ -17,10 +17,10 @@ import java.util.Objects;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    private Long problem_id;
+    private Long problemId;
     private String title;
     private String difficulty;
     private String link;

@@ -34,7 +34,7 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getAllTask(pageNumber,pageSize,sortBy,sortDir));
     }
 
-    @GetMapping("/user/{userId}/tasks")
+    @GetMapping("/users/{userId}/tasks")
     public ResponseEntity<TaskResponse> fetchTaskByUser(@PathVariable("userId") Long userId,
                                                         @RequestParam(value ="pageNumber",defaultValue = AppConstants.PAGE_NUMBER,required = false) Integer pageNumber,
                                                         @RequestParam(value ="pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false) Integer pageSize,

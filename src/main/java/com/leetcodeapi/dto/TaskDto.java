@@ -14,13 +14,13 @@ import java.sql.Timestamp;
 public class TaskDto {
 
     private Long id;
-    private Long problem_id;
+    private Long problemId;
     private String title;
     private String difficulty;
     private String link;
     private Long points;
     private Timestamp timestamp;
     private String notes;
-    private UserDto user;
+//    private UserDto user;
 
 }

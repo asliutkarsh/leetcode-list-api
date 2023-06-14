@@ -3,6 +3,7 @@ package com.leetcodeapi.controller;
 import com.leetcodeapi.dto.ApiResponse;
 import com.leetcodeapi.dto.UserDto;
 import com.leetcodeapi.services.UserService;
+import com.leetcodeapi.utils.Utils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +48,12 @@ public class UserController {
     public ResponseEntity<UserDto> fetchUserById(@PathVariable("userId") Long userId)  {
         return ResponseEntity.ok(userService.getUserById(userId));
     }
+
+    @GetMapping("/current-user")
+    public ResponseEntity<UserDto> getUser() {
+        UserDto user = userService.getUserByUsername(Utils.getAuthenticatedUserName());
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 
 }
