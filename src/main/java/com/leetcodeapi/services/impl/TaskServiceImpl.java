@@ -135,7 +135,7 @@ public class TaskServiceImpl implements TaskService {
 
     private void deletePoints(Task task,User user){
         UserDailyScore userDailyScore = userDailyScoreRepository.findByUser_IdAndDate(
-                        user.getId(), LocalDate.from(task.getTimestamp().toInstant())
+                        user.getId(), task.getTimestamp().toLocalDateTime().toLocalDate()
                         ).orElse(null);
         if (userDailyScore!=null){
             userDailyScore.setScore(userDailyScore.getScore()-task.getPoints());
