@@ -33,13 +33,6 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    public Long registerNewUser(UserDto userDto) {
-
-        return createUser(userDto);
-
-    }
-
 
     @Override
     public Long createUser(UserDto userDto) {
@@ -76,8 +69,8 @@ public class UserServiceImpl implements UserService {
 
             user.setName(userDto.getName());
         }
-        if (!Objects.equals(user.getPassword(), userDto.getPassword()) && userDto.getPassword() != null) {
-            user.setPassword(userDto.getPassword());
+        if (!Objects.equals(user.getPassword(), passwordEncoder.encode(userDto.getPassword())) && userDto.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
         if (userDto.getDailyPoints() == 0) {
             user.setDailyPoints(0L);

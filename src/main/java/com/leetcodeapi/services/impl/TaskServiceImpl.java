@@ -52,17 +52,16 @@ public class TaskServiceImpl implements TaskService {
         if (taskRepository.existsByProblemId(taskDto.getProblemId())){
             throw new DuplicateEntryException("Task already exists");
         }
-        Task task = modelMapper.map(taskDto,Task.class);
         Question  question = leetcodeService.getProblemById(taskDto.getProblemId());
         if (question==null){
             throw new ProblemNotFoundException();
         }
-
+        Task task = modelMapper.map(taskDto,Task.class);
         task.setTitle(question.getTitle());
         task.setDifficulty(question.getDifficulty());
         task.setLink(AppConstants.LEETCODE_PROBLEM_LINK+question.getTitleSlug());
 
-        Long points = 0L;
+        long points = 0L;
         switch (question.getDifficulty()) {
             case AppConstants.LEETCODE_DIFFICULTY_EASY -> points = AppConstants.LEETCODE_DIFFICULTY_EASY_POINTS;
             case AppConstants.LEETCODE_DIFFICULTY_MEDIUM -> points = AppConstants.LEETCODE_DIFFICULTY_MEDIUM_POINTS;

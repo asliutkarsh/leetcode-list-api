@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tasks")
+@Table(name = "tasks",uniqueConstraints = @UniqueConstraint(name = "task_problem_unique",columnNames = "problem_id"))
 @Getter
 @Setter
 @ToString
@@ -19,7 +19,7 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column(name = "problem_id",nullable = false)
     private Long problemId;
     private String title;
     private String difficulty;
@@ -28,7 +28,7 @@ public class Task {
     private Timestamp timestamp;
     @Column(length = 1000000)
     private String notes;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Override

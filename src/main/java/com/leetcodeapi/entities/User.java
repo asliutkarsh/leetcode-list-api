@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users",uniqueConstraints = @UniqueConstraint(name = "user_username_unique",columnNames = "username"))
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,11 +20,11 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "user_id_seq",sequenceName = "user_id_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_id_seq")
     private Long id;
     @Column(nullable = false,length = 100)
     private String name;
-    @Column(unique = true)
     private String username;
     private String password;
     private Long totalPoints;
@@ -36,6 +36,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserDailyScore> dailyScores = new ArrayList<>();
 
+    public User(String name, String username, String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -66,7 +66,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Long> registerUser(@RequestBody UserDto userDto) {
-        Long registeredUser = userService.registerNewUser(userDto);
+        Long registeredUser = userService.createUser(userDto);
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 

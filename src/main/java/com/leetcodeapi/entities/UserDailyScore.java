@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "user_daily_scores")
+@Table(name = "user_daily_scores",uniqueConstraints = @UniqueConstraint(name = "user_daily_score_date_unique",columnNames = {"date"}))
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class UserDailyScore {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private LocalDate date;
 
     @Column(nullable = false)

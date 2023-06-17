@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface UserService {
 
-    Long registerNewUser(UserDto userDto);
     Long createUser(UserDto userDto);
     UserDto updateUser(UserDto userDto,Long userId);
     List<UserDto> getAllUser();

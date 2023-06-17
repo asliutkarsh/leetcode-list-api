@@ -25,6 +25,8 @@ public class TaskController {
         return new ResponseEntity<>(taskId, HttpStatus.CREATED);
     }
 
+/*
+    Not using this method
     @GetMapping("/tasks")
     public ResponseEntity<TaskResponse> fetchAllTask(
             @RequestParam(value ="pageNumber",defaultValue = AppConstants.PAGE_NUMBER,required = false) Integer pageNumber,
@@ -33,6 +35,8 @@ public class TaskController {
             @RequestParam(value = "sortDir",defaultValue = AppConstants.SORT_DIR,required = false) String sortDir){
         return ResponseEntity.ok(taskService.getAllTask(pageNumber,pageSize,sortBy,sortDir));
     }
+*/
+
 
     @GetMapping("/users/{userId}/tasks")
     public ResponseEntity<TaskResponse> fetchTaskByUser(@PathVariable("userId") Long userId,
@@ -54,7 +58,6 @@ public class TaskController {
         taskService.deleteTask(taskId);
         return new ResponseEntity<>(new ApiResponse("Task Deleted Successfully",true),HttpStatus.OK);
     }
-
 
 
     @PutMapping("/tasks/{tasksId}")
