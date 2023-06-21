@@ -59,10 +59,17 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    /*
+        "http://api.leetcodelist.asliutkarsh.me/",
+            "http://leetcodelist.asliutkarsh.me/",
+            "http://www.leetcodelist.asliutkarsh.me/",
+     */
     private static final List<String> allowedOrigins = List.of(
             "http://localhost:3000/",
             "http://127.0.0.1:3000/",
-            "https://leetcode.loca.lt/"
+            "https://www.leetcodelist.asliutkarsh.me/",
+            "https://www.leetcodelist.asliutkarsh.me/"
+
     );
     public SecurityConfig(CustomUserDetailService customUserDetailService, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.customUserDetailService = customUserDetailService;

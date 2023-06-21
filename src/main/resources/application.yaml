@@ -1,12 +1,12 @@
 spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/leetcode?createDatabaseIfNotExist=true&useSSL=true
-    username: root
-    password: 123456
-
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    show-sql: true
+      ddl-auto: update
+server:
+  port: 8080
+
