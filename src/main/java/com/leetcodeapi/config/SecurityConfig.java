@@ -67,9 +67,8 @@ public class SecurityConfig {
     private static final List<String> allowedOrigins = List.of(
             "http://localhost:3000/",
             "http://127.0.0.1:3000/",
-            "https://www.leetcodelist.asliutkarsh.me/",
+            "https://leetcodelist.asliutkarsh.me/",
             "https://www.leetcodelist.asliutkarsh.me/"
-
     );
     public SecurityConfig(CustomUserDetailService customUserDetailService, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.customUserDetailService = customUserDetailService;
@@ -85,7 +84,7 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**","/").permitAll()
                         .requestMatchers("/api/v1/users/**").authenticated()
                         .requestMatchers("/api/v1/tasks/**").authenticated()
                         .anyRequest().denyAll())
