@@ -34,7 +34,7 @@ public class DailyScoreResetTask {
         this.userDailyScoreRepository = userDailyScoreRepository;
     }
 
-    @Scheduled(cron = "@midnight",zone = "Asia/Calcutta")
+    @Scheduled(cron = "0 0 0 * * *",zone = "Asia/Calcutta")
     public void resetDailyScores() {
         log.info("Resetting Daily Score on "+ LocalDate.now());
         LocalDate yesterday = LocalDate.now().minusDays(1);

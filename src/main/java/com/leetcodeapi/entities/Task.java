@@ -8,12 +8,12 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tasks",uniqueConstraints = @UniqueConstraint(name = "task_problem_unique",columnNames = "problem_id"))
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@AllArgsConstructor
+    @Table(name = "tasks",uniqueConstraints = @UniqueConstraint(name = "task_problem_unique",columnNames = "problem_id"))
+    @Getter
+    @Setter
+    @ToString
+    @RequiredArgsConstructor
+    @AllArgsConstructor
 public class Task {
 
     @Id

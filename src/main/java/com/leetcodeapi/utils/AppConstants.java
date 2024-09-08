@@ -1,5 +1,8 @@
 package com.leetcodeapi.utils;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class AppConstants {
 
     public static final String LEETCODE_URL ="https://leetcode.com/graphql";
@@ -23,7 +26,5 @@ public class AppConstants {
     public static final String JWT_SECRET ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ";
 
     public static final long JWT_TOKEN_VALIDITY= 7*24*60*60 ; //in seconds
-
-
 
 }

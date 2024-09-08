@@ -12,6 +12,6 @@ public interface UserService {
     UserDto getUserById(Long userId);
     UserDto getUserByUsername(String username);
     void deleteUser(Long userId);
-
-
+    void forgotPassword(String username);
+    void resetPassword(String token, String newPassword);
 }

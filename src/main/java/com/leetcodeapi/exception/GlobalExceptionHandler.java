@@ -46,6 +46,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(WrongTokenException.class)
+    public ResponseEntity<ApiResponse> handleWrongTokenExceptionHandler(WrongTokenException ex){
+        String message = "Invalid or Expired Reset Link";
+        ApiResponse apiResponse = new ApiResponse(message,false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
+
+
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<ApiResponse> handleInvalidJwtExceptionHandler(JwtException ex){
         return new ResponseEntity<>(new ApiResponse("There is some error with server right now",false), HttpStatus.FORBIDDEN);
