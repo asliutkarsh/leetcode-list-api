@@ -1,0 +1,19 @@
+#java
+
+.idea/
+*.iml
+*.iws
+target/
+.sonar/
+.sonarlint/
+
+#docker
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+
+#eclipse
+.classpath
+
+# Dev yaml
+/src/main/resources/application-dev.yaml
